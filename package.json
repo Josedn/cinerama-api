@@ -2,17 +2,21 @@
   "name": "cinerama-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./build/CineApi.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
-    "start": "tsc && node ./build/app.js",
-    "prod": "node ./build/app.js"
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/CineApi.ts",
+    "start": "tsc && node ./build/CineApi.js",
+    "prod": "node ./build/CineApi.js"
+  },
+  "bin": {
+    "cinerama-api": "./build/CineApi.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^5.1.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }
