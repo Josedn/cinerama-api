@@ -1,9 +1,9 @@
 import program from "commander";
-import Api from "./Api";
+import Main from "./Main";
 
 export default class CLI {
     run() {
-        const mainApi = new Api();
-        mainApi.run();
+        const main = new Main();
+        //main.setup();
     }
 }
