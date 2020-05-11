@@ -1,7 +1,9 @@
 import program from "commander";
+import Api from "./Api";
 
 export default class CLI {
-    constructor() {
-        
+    run() {
+        const mainApi = new Api();
+        mainApi.run();
     }
 }

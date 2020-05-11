@@ -1,1 +1,3 @@
-console.log('its working 2');
+import CLI from "./CLI";
+
+const cli = new CLI;
