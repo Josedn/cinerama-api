@@ -39,6 +39,14 @@ export default class Api {
         // Enable response time tracking for HTTP request.
         this.app.use(responseTime());
 
+        // Enable cors
+        this.app.use(function (req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE');
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
+            next();
+        });
+
         // Enable HTTP request logging.
         //if (pretty && !verbose) app.use(Logger.expressLogger);
 

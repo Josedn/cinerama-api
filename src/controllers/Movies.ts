@@ -38,7 +38,7 @@ export default class Movies {
     }
 
     getSlideshow(req: Request, res: Response, next: Function) {
-        return res.json([pulp, godfather2]);
+        return res.json([pulp]);
     }
 
     getFeatured(req: Request, res: Response, next: Function) {

@@ -51,7 +51,7 @@ export const godfather2: any = {
 };
 
 
-export const pulp: Movie = {
+export const pulp = {
     "_id": "tt0110912",
     "imdb_id": "tt0110912",
     "title": "Pulp Fiction",
