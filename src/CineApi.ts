@@ -1,4 +1,3 @@
-import CLI from "./CLI";
+import Main from "./Main";
 
-const cli = new CLI;
-cli.run();
+const main = new Main();

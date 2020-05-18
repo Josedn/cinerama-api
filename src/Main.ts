@@ -3,14 +3,14 @@ import DatabaseManager from "./storage/DatabaseManager";
 import bodyParser from "body-parser";
 import compress from "compression";
 import responseTime from "response-time";
-import Movies from "./controllers/Movies";
 import { port } from "./config/Constants";
 import RouteManager from "./controllers/RouteManager";
+import Logger from "./config/Logger";
 
-export default class Api {
+export default class Main {
     private app: Express.Application;
     private routeManager: RouteManager;
-    private databaseManager: DatabaseManager;
+    private logger: Logger;
 
     /**
      * Create an index object.
@@ -21,6 +21,7 @@ export default class Api {
      * @param {Boolean} [config.debug=false] - Debug mode for extra output.
      */
     constructor({ start = true, pretty = true, verbose = false, debug = false } = {}) {
+        this.logger = new Logger(pretty, verbose);
         this.app = Express();
 
         // Enable parsing URL encoded bodies.
@@ -48,15 +49,17 @@ export default class Api {
         });
 
         // Enable HTTP request logging.
-        //if (pretty && !verbose) app.use(Logger.expressLogger);
+        //if (pretty && !verbose)
+        this.app.use(this.logger.expressLogger);
 
         this.routeManager = new RouteManager(this.app);
         this.routeManager.setup();
 
-        this.databaseManager = new DatabaseManager();
-        this.databaseManager.connect();
 
-        //////////
-        this.app.listen(port);
+        DatabaseManager.connect().then(() => {
+            //////////
+            this.logger.logger.log("info", "Connected");
+            this.app.listen(port);
+        });
     }
 }

@@ -1,3 +1,5 @@
+import path from "path";
+
 /**
  * The host of the server of the database. Default is `["localhost"]`.
  * @type {Array}
@@ -21,3 +23,9 @@ export const pageSize = 50;
  * @type {Integer}
  */
 export const port = 1232;
+
+/**
+ * The path to the temprary directory.. Default is `./tmp`.
+ * @type {String}
+ */
+export const tempDir = path.join(process.cwd(), "tmp");
