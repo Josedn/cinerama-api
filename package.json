@@ -2,16 +2,16 @@
   "name": "cinerama-api",
   "version": "1.0.0",
   "description": "",
-  "main": "./build/CineApi.js",
+  "main": "./build/CineEnvironment.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/CineApi.ts",
-    "start": "tsc && node ./build/CineApi.js",
-    "prod": "node ./build/CineApi.js"
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/CineEnvironment.ts",
+    "start": "tsc && node ./build/CineEnvironment.js",
+    "prod": "node ./build/CineEnvironment.js"
   },
   "bin": {
-    "cinerama-api": "./build/CineApi.js"
+    "cinerama-api": "./build/CineEnvironment.js"
   },
   "author": "",
   "license": "ISC",
