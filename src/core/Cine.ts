@@ -19,7 +19,7 @@ export default class Cine {
         const apiPort = CineEnvironment.getConfigManager().getValue<number>(ConfigKeys.apiPort);
 
         const dbPromise = DatabaseManager.connect(dbHost, dbName);
-        const apiPromise = this.api.initialize(apiPort)
+        const apiPromise = this.api.initialize(apiPort);
 
         return Promise.all([dbPromise, apiPromise]);
     }

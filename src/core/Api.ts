@@ -38,10 +38,8 @@ export default class Api {
     }
 
     initialize(port: number): Promise<void> {
-        this.app.get("/movies", emptyResonse);
-
         return new Promise((resolve, reject) => {
-            this.app.listen(port, "0.0.0.0")
+            this.app.listen(port)
                 .on('error', (err) => {
                     reject(err);
                 })
@@ -52,10 +50,5 @@ export default class Api {
                     writeLine('closed', LogLevel.Warning);
                 });
         });
-
     }
 }
-
-const emptyResonse = (req: Request, res: Response, next: Function) => {
-    return res.json({});
-};

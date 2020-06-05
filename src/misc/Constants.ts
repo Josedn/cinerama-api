@@ -3,3 +3,5 @@ export enum ConfigKeys {
     dbHost = "dbHost",
     apiPort = "apiPort",
 }
+
+export const CONFIG_FILE = "config.json";

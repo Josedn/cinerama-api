@@ -2,9 +2,9 @@ import readline from 'readline';
 import Logger, { LogLevel } from "./misc/Logger";
 import ConfigManager from "./misc/ConfigManager";
 import Cine from "./core/Cine";
+import { CONFIG_FILE } from './misc/Constants';
 
 const writeLine = Logger.generateLogger("CineEnvironment");
-const CONFIG_FILE = "config.json";
 
 export default class CineEnvironment {
     private static configManager: ConfigManager;
