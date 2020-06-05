@@ -31,7 +31,7 @@ export default class Logger {
 
     private writeLine(text: string, logLevel: LogLevel, tag: string) {
         if (this.canLog(logLevel)) {
-            console.log("[" + logLevel.toString() + "][" + tag + "] - " + text);
+            console.log("[" + LogLevel[logLevel] + "][" + tag + "] - " + text);
         }
     }
 
@@ -41,8 +41,8 @@ export default class Logger {
 }
 
 export enum LogLevel {
-    Debug = "Debug",
-    Verbose = "Verbose",
-    Warning = "Warning",
-    Info = "Info",
+    Debug,
+    Verbose,
+    Warning,
+    Info,
 }

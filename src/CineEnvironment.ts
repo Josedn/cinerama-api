@@ -1,3 +1,4 @@
+import readline from 'readline';
 import Logger, { LogLevel } from "./misc/Logger";
 import ConfigManager from "./misc/ConfigManager";
 import Cine from "./core/Cine";
@@ -23,9 +24,10 @@ export default class CineEnvironment {
         this.cine = new Cine();
         this.configManager.initialize().then(() => {
             this.cine.initialize();
-            writeLine("The environment has initialized successfully. Ready for connections.", LogLevel.Verbose);
+            writeLine("The environment has initialized successfully. Ready for connections.", LogLevel.Info);
+            this.startCommandLoop();
         }).catch(err => {
-            writeLine("Error initializing server: " + err, LogLevel.Verbose);
+            writeLine("Error initializing server: " + err, LogLevel.Info);
         });
 
     }
@@ -39,6 +41,23 @@ export default class CineEnvironment {
         console.log("1.0.0 alpha");
         console.log("Copyright (c) 2020 - filmstock.tv");
         console.log();
+    }
+
+    async startCommandLoop() {
+        const reader = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        for await (const line of reader) {
+            switch (line) {
+                case "stop":
+                    return;
+                default:
+                    writeLine("Invalid command", LogLevel.Info);
+                    break;
+            }
+        }
+
     }
 
     getConfigManager() {
