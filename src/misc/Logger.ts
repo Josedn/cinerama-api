@@ -2,28 +2,40 @@ export default class Logger {
     private static instance: Logger;
     private logLevel: LogLevel;
 
-    static getInstance(): Logger {
+    private static getInstance(): Logger {
         if (this.instance == null) {
             this.instance = new Logger(LogLevel.Verbose);
         }
         return this.instance;
     }
 
-    constructor(logLevel: LogLevel) {
+    static generateLogger(tag: string) {
+        return (text: string, logLevel: LogLevel) => this.writeLine(text, logLevel, tag);
+    }
+
+    static writeLine(text: string, logLevel: LogLevel, tag: string) {
+        this.getInstance().writeLine(text, logLevel, tag);
+    }
+
+    static setLogLevel(logLevel: LogLevel) {
+        this.getInstance().setLogLevel(logLevel);
+    }
+
+    private constructor(logLevel: LogLevel) {
         this.logLevel = logLevel;
     }
 
-    setLogLevel(logLevel: LogLevel) {
+    private setLogLevel(logLevel: LogLevel) {
         this.logLevel = logLevel;
     }
 
-    writeLine(text: string, logLevel: LogLevel, tag: string) {
+    private writeLine(text: string, logLevel: LogLevel, tag: string) {
         if (this.canLog(logLevel)) {
             console.log("[" + logLevel.toString() + "][" + tag + "] - " + text);
         }
     }
 
-    canLog(logLevel: LogLevel) {
+    private canLog(logLevel: LogLevel) {
         return this.logLevel <= logLevel;
     }
 }
