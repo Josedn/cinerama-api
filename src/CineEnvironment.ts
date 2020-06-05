@@ -7,32 +7,34 @@ const writeLine = Logger.generateLogger("CineEnvironment");
 const CONFIG_FILE = "config.json";
 
 export default class CineEnvironment {
-    private static instance: CineEnvironment;
-    static getInstance(): CineEnvironment {
-        if (this.instance == null) {
-            this.instance = new CineEnvironment();
+    private static configManager: ConfigManager;
+    private static cine: Cine;
+    private static initialized: boolean;
+
+    static initialize() {
+        if (this.initialized) {
+            writeLine("Environment already initialized!", LogLevel.Warning);
+            return;
         }
-        return this.instance;
-    }
-
-    private configManager: ConfigManager;
-    private cine: Cine;
-
-    constructor() {
+        this.initialized = true;
         this.printSplash();
         this.configManager = new ConfigManager(CONFIG_FILE);
         this.cine = new Cine();
-        this.configManager.initialize().then(() => {
-            this.cine.initialize();
-            writeLine("The environment has initialized successfully. Ready for connections.", LogLevel.Info);
-            this.startCommandLoop();
+        this.configManager.initialize().then(found => {
+            this.cine.initialize().then(() => {
+                writeLine("The environment has initialized successfully. Ready for connections.", LogLevel.Info);
+                //this.startCommandLoop();
+            }).catch(err => {
+                writeLine("Error initializing server: " + err, LogLevel.Info);
+                process.exit(0);
+            });
         }).catch(err => {
-            writeLine("Error initializing server: " + err, LogLevel.Info);
+            writeLine("Error with configuration file: " + err, LogLevel.Info);
+            process.exit(0);
         });
-
     }
 
-    printSplash() {
+    private static printSplash() {
         console.log("     o                        o");
         console.log(",---..,---.,---.    ,---.,---..");
         console.log("|    ||   ||---'    ,---||   ||");
@@ -43,7 +45,7 @@ export default class CineEnvironment {
         console.log();
     }
 
-    async startCommandLoop() {
+    private static async startCommandLoop() {
         const reader = readline.createInterface({
             input: process.stdin,
             output: process.stdout
@@ -57,16 +59,15 @@ export default class CineEnvironment {
                     break;
             }
         }
-
     }
 
-    getConfigManager() {
-        return this.configManager;
-    }
-
-    getCine() {
+    static getCine() {
         return this.cine;
+    }
+
+    static getConfigManager() {
+        return this.configManager;
     }
 }
 
-CineEnvironment.getInstance();
+CineEnvironment.initialize();

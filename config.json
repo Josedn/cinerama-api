@@ -1,0 +1,5 @@
+{
+    "dbName": "popcorn",
+    "dbHost": "localhost",
+    "apiPort": 1232
+}

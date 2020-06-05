@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { ConfigKeys } from "./Constants";
 
 export default class ConfigManager {
     private configMap: Dictionary;
@@ -27,11 +28,12 @@ export default class ConfigManager {
         });
     }
 
-    getValue(key: string) {
-        return this.configMap[key];
+    getValue<T>(key: ConfigKeys) {
+        const value = ConfigKeys[key];
+        return this.configMap[value] as T;
     }
 }
 
 interface Dictionary {
-    [id: string]: string;
+    [id: string]: any;
 }
