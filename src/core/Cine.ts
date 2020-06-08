@@ -1,12 +1,11 @@
-import Logger, { LogLevel } from "../misc/Logger";
+//import Logger, { LogLevel } from "../misc/Logger";
 import CineEnvironment from "../CineEnvironment";
 import { ConfigKeys } from "../misc/Constants";
 import DatabaseManager from "../database/DatabaseManager";
 import Api from "./Api";
-import MovieManager from "./movies/MovieManager";
 import RouteManager from "./controllers/RouteManager";
 
-const writeLine = Logger.generateLogger("Core");
+//const writeLine = Logger.generateLogger("Core");
 
 export default class Cine {
     private api: Api;

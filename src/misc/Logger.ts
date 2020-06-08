@@ -9,15 +9,15 @@ export default class Logger {
         return this.instance;
     }
 
-    static generateLogger(tag: string) {
+    static generateLogger(tag: string): (text: string, logLevel: LogLevel) => void {
         return (text: string, logLevel: LogLevel) => this.writeLine(text, logLevel, tag);
     }
 
-    static writeLine(text: string, logLevel: LogLevel, tag: string) {
+    static writeLine(text: string, logLevel: LogLevel, tag: string): void {
         this.getInstance().writeLine(text, logLevel, tag);
     }
 
-    static setLogLevel(logLevel: LogLevel) {
+    static setLogLevel(logLevel: LogLevel): void {
         this.getInstance().setLogLevel(logLevel);
     }
 

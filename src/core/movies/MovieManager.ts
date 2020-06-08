@@ -1,14 +1,14 @@
-import Logger from "../../misc/Logger";
+//import Logger from "../../misc/Logger";
 import Movie from "../../database/models/Movie";
 import { escapeRegExp } from "../../misc/Utils";
 import MovieController from "../controllers/MovieController";
 
-const writeLine = Logger.generateLogger("MovieManager");
+//const writeLine = Logger.generateLogger("MovieManager");
 const pageSize = 50;
 
 export default class MovieManager {
 
-    static getAvailablePages() {
+    static getAvailablePages(): Promise<number[]> {
         return Movie.countDocuments().exec().then(count => {
             const pages = Math.round(count / pageSize);
             const docs: number[] = [];
@@ -21,7 +21,7 @@ export default class MovieManager {
         });
     }
 
-    static getPage(page: number, data: { order?: number, keywords?: string, sort?: string, genre?: string }) {
+    static getPage(page: number, data: { order?: number, keywords?: string, sort?: string, genre?: string }): Promise<any> {
         page = page - 1;
         const offset = page * pageSize;
         const query: any = {};
@@ -41,7 +41,7 @@ export default class MovieManager {
 
             let regex = "^";
 
-            for (let w in words) {
+            for (const w in words) {
                 words[w] = words[w].replace(/[^a-zA-Z0-9]/g, "");
                 regex += `(?=.*\\b${escapeRegExp(words[w].toLowerCase())}\\b)`;
             }

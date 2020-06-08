@@ -1,8 +1,8 @@
-import readline from 'readline';
+import readline from "readline";
 import Logger, { LogLevel } from "./misc/Logger";
 import ConfigManager from "./misc/ConfigManager";
 import Cine from "./core/Cine";
-import { CONFIG_FILE } from './misc/Constants';
+import { CONFIG_FILE } from "./misc/Constants";
 
 const writeLine = Logger.generateLogger("CineEnvironment");
 
@@ -11,7 +11,7 @@ export default class CineEnvironment {
     private static cine: Cine;
     private static initialized: boolean;
 
-    static initialize() {
+    static initialize(): void {
         if (this.initialized) {
             writeLine("Environment already initialized!", LogLevel.Warning);
             return;
@@ -20,7 +20,7 @@ export default class CineEnvironment {
         this.printSplash();
         this.configManager = new ConfigManager(CONFIG_FILE);
         this.cine = new Cine();
-        this.configManager.initialize().then(found => {
+        this.configManager.initialize().then(() => {
             this.cine.initialize().then(() => {
                 writeLine("The environment has initialized successfully. Ready for connections.", LogLevel.Info);
                 //this.startCommandLoop();
@@ -61,11 +61,11 @@ export default class CineEnvironment {
         }
     }
 
-    static getCine() {
+    static getCine(): Cine {
         return this.cine;
     }
 
-    static getConfigManager() {
+    static getConfigManager(): ConfigManager {
         return this.configManager;
     }
 }

@@ -1,4 +1,4 @@
-import Express, { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Logger, { LogLevel } from "../../misc/Logger";
 import MovieManager from "../movies/MovieManager";
 
@@ -22,7 +22,7 @@ export default class MovieController {
         slug: 1
     };
 
-    static getMovies(req: Request, res: Response, next: Function) {
+    static getMovies(req: Request, res: Response, next: NextFunction): void {
         MovieManager.getAvailablePages().then(pages => {
             const styledPages = pages.map(page => {
                 return `${prefix}/${page}`;

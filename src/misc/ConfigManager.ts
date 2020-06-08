@@ -10,7 +10,7 @@ export default class ConfigManager {
         this.fileName = fileName;
     }
 
-    initialize() {
+    initialize(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             if (fs.existsSync(this.fileName)) {
                 fs.promises.readFile(this.fileName, { encoding: "utf-8" }).then(rawText => {
@@ -19,7 +19,7 @@ export default class ConfigManager {
                         this.configMap = Object.assign({}, this.configMap, parsed);
                         resolve(true);
                     } catch {
-                        reject(new Error('Error parsing JSON:' + this.fileName));
+                        reject(new Error("Error parsing JSON:" + this.fileName));
                     }
                 });
             } else {
@@ -28,7 +28,7 @@ export default class ConfigManager {
         });
     }
 
-    getValue<T>(key: ConfigKeys) {
+    getValue<T>(key: ConfigKeys): T {
         const value = ConfigKeys[key];
         return this.configMap[value] as T;
     }

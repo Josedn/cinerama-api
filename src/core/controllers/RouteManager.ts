@@ -1,13 +1,12 @@
 import Express from "express";
-import MovieManager from "../movies/MovieManager";
-import Logger, { LogLevel } from "../../misc/Logger";
+//import Logger, { LogLevel } from "../../misc/Logger";
 import MovieController from "./MovieController";
 
-const writeLine = Logger.generateLogger("RouteManager");
+//const writeLine = Logger.generateLogger("RouteManager");
 
 export default class RouteManager {
 
-    initialize(app: Express.Application) {
+    initialize(app: Express.Application): void {
         app.get("/movies", MovieController.getMovies);
 
         /*this.app.get("/movies/:page", this.movies.getPage);
@@ -16,7 +15,5 @@ export default class RouteManager {
         this.app.get("/explore", this.movies.getExplore);
         this.app.get("/search/:query", this.movies.getSearch);
         this.app.get("/search", this.movies.getEmpty);*/
-
-        return true;
     }
 }
