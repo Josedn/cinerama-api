@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import Express, { Request, Response } from "express";
 
 export default class Movies {
     static projection = {
@@ -14,6 +14,12 @@ export default class Movies {
         released: 1,
         rating: 1,
         slug: 1
+    };
+
+    static linkRoutes = (app: Express.Application) => {
+        app.get("/movies", () => {
+
+        });
     };
 }
 

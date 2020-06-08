@@ -25,11 +25,11 @@ export default class CineEnvironment {
                 writeLine("The environment has initialized successfully. Ready for connections.", LogLevel.Info);
                 //this.startCommandLoop();
             }).catch(err => {
-                writeLine("Error initializing server: " + err, LogLevel.Info);
+                writeLine("Error initializing server: " + err, LogLevel.Warning);
                 process.exit(0);
             });
         }).catch(err => {
-            writeLine("Error with configuration file: " + err, LogLevel.Info);
+            writeLine("Error with configuration file: " + err, LogLevel.Warning);
             process.exit(0);
         });
     }
