@@ -1,15 +1,14 @@
 import Logger from "../../misc/Logger";
 import Movie from "../../database/models/Movie";
 import { escapeRegExp } from "../../misc/Utils";
-import Movies from "../controllers/Movies";
+import MovieController from "../controllers/MovieController";
 
 const writeLine = Logger.generateLogger("MovieManager");
 const pageSize = 50;
-const prefix = "movies";
 
 export default class MovieManager {
 
-    getAvailablePages() {
+    static getAvailablePages() {
         return Movie.countDocuments().exec().then(count => {
             const pages = Math.round(count / pageSize);
             const docs: number[] = [];
@@ -22,7 +21,7 @@ export default class MovieManager {
         });
     }
 
-    getPage(page: number, data: { order?: number, keywords?: string, sort?: string, genre?: string }) {
+    static getPage(page: number, data: { order?: number, keywords?: string, sort?: string, genre?: string }) {
         page = page - 1;
         const offset = page * pageSize;
         const query: any = {};
@@ -96,7 +95,7 @@ export default class MovieManager {
                 }, {
                     $match: query
                 }, {
-                    $project: Movies.projection
+                    $project: MovieController.projection
                 }, {
                     $skip: offset
                 }, {
@@ -104,11 +103,5 @@ export default class MovieManager {
                 }
             ]
         ).exec() as Promise<any>;
-    }
-
-    initialize(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            resolve();
-        });
     }
 }

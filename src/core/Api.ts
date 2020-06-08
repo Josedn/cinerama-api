@@ -8,7 +8,7 @@ import Logger, { LogLevel } from "../misc/Logger";
 const writeLine = Logger.generateLogger("Api");
 
 export default class Api {
-    private app: Express.Application;
+    app: Express.Application;
 
     constructor() {
         this.app = Express();
