@@ -3,7 +3,6 @@ import Logger, { LogLevel } from "../../misc/Logger";
 import MovieManager from "../movies/MovieManager";
 
 const writeLine = Logger.generateLogger("MovieController");
-
 const prefix = "movies";
 
 export default class MovieController {
@@ -22,19 +21,35 @@ export default class MovieController {
         slug: 1
     };
 
-    static getMovies(req: Request, res: Response, next: NextFunction): void {
+    static getAvailablePages(req: Request, res: Response, next: NextFunction): void {
+        writeLine("Requested page list", LogLevel.Debug);
+
         MovieManager.getAvailablePages().then(pages => {
             const styledPages = pages.map(page => {
                 return `${prefix}/${page}`;
             });
-
             res.json(styledPages);
         }).catch(err => {
             //next(err);
-            res.json({});
-
+            res.status(500).json("something went wrong");
             writeLine("Error handling request: " + err.message, LogLevel.Warning);
         });
     }
-}
 
+    static getPage(req: Request, res: Response, next: NextFunction): void {
+        const page = parseInt(req.params.page) - 1;
+        
+        writeLine("Requested page " + page, LogLevel.Debug);
+
+        if (!isNaN(page) && page >= 0) {
+            MovieManager.getPage(0, {keywords: "Harry"}).then(page => {
+                res.json(page);
+            }).catch(err => {
+                res.status(500).json("something went wrong");
+                writeLine("Error getting page " + err.message, LogLevel.Warning);
+            });
+        } else {
+            res.status(404).json("not found");
+        }
+    }
+}

@@ -22,7 +22,6 @@ export default class MovieManager {
     }
 
     static getPage(page: number, data: { order?: number, keywords?: string, sort?: string, genre?: string }): Promise<any> {
-        page = page - 1;
         const offset = page * pageSize;
         const query: any = {};
 

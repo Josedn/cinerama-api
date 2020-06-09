@@ -7,10 +7,9 @@ import MovieController from "./MovieController";
 export default class RouteManager {
 
     initialize(app: Express.Application): void {
-        app.get("/movies", MovieController.getMovies);
-
-        /*this.app.get("/movies/:page", this.movies.getPage);
-        this.app.get("/slideshow", this.movies.getSlideshow);
+        app.get("/movies", MovieController.getAvailablePages);
+        app.get("/movies/:page", MovieController.getPage);
+        /*this.app.get("/slideshow", this.movies.getSlideshow);
         this.app.get("/featured", this.movies.getFeatured);
         this.app.get("/explore", this.movies.getExplore);
         this.app.get("/search/:query", this.movies.getSearch);

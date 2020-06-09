@@ -4,7 +4,7 @@ export default class Logger {
 
     private static getInstance(): Logger {
         if (this.instance == null) {
-            this.instance = new Logger(LogLevel.Verbose);
+            this.instance = new Logger(LogLevel.Debug);
         }
         return this.instance;
     }
