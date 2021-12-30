@@ -1,7 +1,5 @@
 export enum ConfigKeys {
-    dbName = "dbName",
-    dbHost = "dbHost",
-    apiPort = "apiPort",
+    API_PORT = "API_PORT",
+    MONGO_URI = "MONGO_URI",
+    NODE_ENV = "NODE_ENV",
 }
-
-export const CONFIG_FILE = "config.json";

@@ -2,3 +2,4 @@ torrents
 node_modules
 build
 tmp
+.env

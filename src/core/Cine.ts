@@ -20,11 +20,11 @@ export default class Cine {
 
     initialize(): Promise<void> {
         return new Promise((resolve, reject) => {
-            const dbName = CineEnvironment.getConfigManager().getValue<string>(ConfigKeys.dbName);
-            const dbHost = CineEnvironment.getConfigManager().getValue<string>(ConfigKeys.dbHost);
-            const apiPort = CineEnvironment.getConfigManager().getValue<number>(ConfigKeys.apiPort);
+            const { getInt, getString} = CineEnvironment.getConfigManager();
+            const apiPort = getInt(ConfigKeys.API_PORT, 1232);
+            const mongoUri = getString(ConfigKeys.MONGO_URI, "");
 
-            const dbPromise = this.databaseManager.initialize(dbHost, dbName);
+            const dbPromise = this.databaseManager.initialize(mongoUri);
             const apiPromise = this.api.initialize(apiPort);
 
             Promise.all([dbPromise, apiPromise]).then(() => {
